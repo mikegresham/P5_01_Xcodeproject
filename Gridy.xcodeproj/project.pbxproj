@@ -9,21 +9,31 @@
 /* Begin PBXBuildFile section */
 		3EEEE3BE244AF893003DF34A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEE3BD244AF893003DF34A /* AppDelegate.swift */; };
 		3EEEE3C0244AF893003DF34A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEE3BF244AF893003DF34A /* SceneDelegate.swift */; };
-		3EEEE3C2244AF893003DF34A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEE3C1244AF893003DF34A /* ViewController.swift */; };
 		3EEEE3C5244AF893003DF34A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EEEE3C3244AF893003DF34A /* Main.storyboard */; };
 		3EEEE3C7244AF896003DF34A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EEEE3C6244AF896003DF34A /* Assets.xcassets */; };
 		3EEEE3CA244AF896003DF34A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EEEE3C8244AF896003DF34A /* LaunchScreen.storyboard */; };
+		3EEEE3D2244AFFE6003DF34A /* MenuScreenCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEE3D1244AFFE6003DF34A /* MenuScreenCustomButton.swift */; };
+		3EEEE3D8244B132B003DF34A /* RoundedCustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEE3D7244B132B003DF34A /* RoundedCustomButton.swift */; };
+		3EEEE3E0244B1BB2003DF34A /* PuzzleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEE3DD244B1BB1003DF34A /* PuzzleViewController.swift */; };
+		3EEEE3E1244B1BB2003DF34A /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEE3DE244B1BB2003DF34A /* MenuViewController.swift */; };
+		3EEEE3E2244B1BB2003DF34A /* EditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEE3DF244B1BB2003DF34A /* EditorViewController.swift */; };
+		3EEEE3E4244B3A28003DF34A /* Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEEE3E3244B3A28003DF34A /* Creation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3EEEE3BA244AF893003DF34A /* Gridy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Gridy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EEEE3BD244AF893003DF34A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EEEE3BF244AF893003DF34A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		3EEEE3C1244AF893003DF34A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		3EEEE3C4244AF893003DF34A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3EEEE3C6244AF896003DF34A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EEEE3C9244AF896003DF34A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EEEE3CB244AF896003DF34A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EEEE3D1244AFFE6003DF34A /* MenuScreenCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScreenCustomButton.swift; sourceTree = "<group>"; };
+		3EEEE3D7244B132B003DF34A /* RoundedCustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedCustomButton.swift; sourceTree = "<group>"; };
+		3EEEE3DD244B1BB1003DF34A /* PuzzleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PuzzleViewController.swift; sourceTree = "<group>"; };
+		3EEEE3DE244B1BB2003DF34A /* MenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		3EEEE3DF244B1BB2003DF34A /* EditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewController.swift; sourceTree = "<group>"; };
+		3EEEE3E3244B3A28003DF34A /* Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Creation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +66,52 @@
 		3EEEE3BC244AF893003DF34A /* Gridy */ = {
 			isa = PBXGroup;
 			children = (
-				3EEEE3BD244AF893003DF34A /* AppDelegate.swift */,
-				3EEEE3BF244AF893003DF34A /* SceneDelegate.swift */,
-				3EEEE3C1244AF893003DF34A /* ViewController.swift */,
+				3EEEE3DC244B134D003DF34A /* Supporting Files */,
+				3EEEE3DB244B1348003DF34A /* View */,
+				3EEEE3DA244B1342003DF34A /* Model */,
+				3EEEE3D9244B1337003DF34A /* Controller */,
+			);
+			path = Gridy;
+			sourceTree = "<group>";
+		};
+		3EEEE3D9244B1337003DF34A /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3EEEE3DF244B1BB2003DF34A /* EditorViewController.swift */,
+				3EEEE3DE244B1BB2003DF34A /* MenuViewController.swift */,
+				3EEEE3DD244B1BB1003DF34A /* PuzzleViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		3EEEE3DA244B1342003DF34A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3EEEE3E3244B3A28003DF34A /* Creation.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		3EEEE3DB244B1348003DF34A /* View */ = {
+			isa = PBXGroup;
+			children = (
 				3EEEE3C3244AF893003DF34A /* Main.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3EEEE3DC244B134D003DF34A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3EEEE3BD244AF893003DF34A /* AppDelegate.swift */,
+				3EEEE3D7244B132B003DF34A /* RoundedCustomButton.swift */,
+				3EEEE3D1244AFFE6003DF34A /* MenuScreenCustomButton.swift */,
 				3EEEE3C6244AF896003DF34A /* Assets.xcassets */,
+				3EEEE3BF244AF893003DF34A /* SceneDelegate.swift */,
 				3EEEE3C8244AF896003DF34A /* LaunchScreen.storyboard */,
 				3EEEE3CB244AF896003DF34A /* Info.plist */,
 			);
-			path = Gridy;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +185,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EEEE3C2244AF893003DF34A /* ViewController.swift in Sources */,
+				3EEEE3E0244B1BB2003DF34A /* PuzzleViewController.swift in Sources */,
+				3EEEE3E1244B1BB2003DF34A /* MenuViewController.swift in Sources */,
+				3EEEE3D8244B132B003DF34A /* RoundedCustomButton.swift in Sources */,
 				3EEEE3BE244AF893003DF34A /* AppDelegate.swift in Sources */,
 				3EEEE3C0244AF893003DF34A /* SceneDelegate.swift in Sources */,
+				3EEEE3D2244AFFE6003DF34A /* MenuScreenCustomButton.swift in Sources */,
+				3EEEE3E4244B3A28003DF34A /* Creation.swift in Sources */,
+				3EEEE3E2244B1BB2003DF34A /* EditorViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
