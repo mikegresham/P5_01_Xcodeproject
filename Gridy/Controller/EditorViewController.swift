@@ -23,6 +23,7 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBAction func startButton(_ sender: Any) {
         creation.image = composeCreationImage()
         preparePuzzleImages()
+        performSegue(withIdentifier: "puzzleSegue", sender: self)
     }
     @IBAction func sliderValueChanged(_ sender: Any) {
         if difficultySlider.value == 6 {
@@ -179,6 +180,13 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         print(images.count)
         return images
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            if segue.identifier == "puzzleSegue" {
+                let puzzleViewController = segue.destination as! PuzzleViewController
+                puzzleViewController.puzzleImages = puzzleImages
+        }
     }
 
 }

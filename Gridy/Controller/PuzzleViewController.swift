@@ -10,12 +10,19 @@ import Foundation
 import UIKit
 
 class PuzzleViewController: UIViewController {
+    
+    var creation = Creation.init()
+    var puzzleImages = [UIImage]()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
 }
 
