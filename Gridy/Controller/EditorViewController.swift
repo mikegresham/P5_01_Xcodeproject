@@ -185,7 +185,7 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "puzzleSegue" {
                 let puzzleViewController = segue.destination as! PuzzleViewController
-                puzzleViewController.puzzleImages = puzzleImages
+                puzzleViewController.piecesCVImages = puzzleImages
         }
     }
 
