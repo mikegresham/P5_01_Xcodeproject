@@ -16,9 +16,13 @@ class PuzzleCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        imageView.image = nil
     }
     func setImage(image: UIImage?) {
-        imageView.image = image
+        if let newImage = image {
+            imageView.image = newImage
+        }
+        
     }
 
 }

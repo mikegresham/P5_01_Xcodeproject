@@ -50,7 +50,7 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     func config() {
         setImage()
         setDifficulty()
-        difficultySlider.value = Float(difficulty)
+        difficultySlider.value = 4.5
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveImageView(_sender:)))
         gridImageView.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
@@ -93,17 +93,14 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @objc func moveImageView(_sender: UIPanGestureRecognizer){
         print("moving")
-        let translation = _sender.translation(in: creationImageView.superview)
+        let translation = _sender.translation(in: gridImageView.superview)
         
-        if _sender.state == .began {
-            initalImageViewOffset = creationImageView.frame.origin
+        if _sender.state == .began || _sender.state == .changed {
+            creationImageView.center = CGPoint(x: creationImageView.center.x + translation.x, y: creationImageView.center.y + translation.y)
+            _sender.setTranslation(CGPoint.zero, in: creationImageView)
+            hiddenCreationImageView.center = CGPoint(x: hiddenCreationImageView.center.x + translation.x, y: hiddenCreationImageView.center.y + translation.y)
+            _sender.setTranslation(CGPoint.zero, in: hiddenCreationImageView)
         }
-        
-        let position = CGPoint (x: translation.x + initalImageViewOffset.x - creationImageView.frame.origin.x, y: translation.y + initalImageViewOffset.y - creationImageView.frame.origin.y)
-        
-        creationImageView.transform = creationImageView.transform.translatedBy(x: position.x, y: position.y)
-        hiddenCreationImageView.transform = hiddenCreationImageView.transform.translatedBy(x: position.x, y: position.y)
-        
     }
     @objc func scaleImageView(_sender: UIPinchGestureRecognizer){
         print("scaling")
@@ -122,6 +119,9 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer:UIGestureRecognizer) -> Bool {
         if gestureRecognizer.view != gridImageView {
+            return false
+        }
+        if gestureRecognizer is UIPanGestureRecognizer || otherGestureRecognizer is UIPanGestureRecognizer {
             return false
         }
         return true
@@ -146,39 +146,47 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     }
     
     func slice(screenshot: UIImage, with difficulty: Int) -> [UIImage] {
-        let width = screenshot.size.width
-        let height = screenshot.size.height
-        
-        let puzzleImageWidth = width / CGFloat(difficulty)
-        let puzzleImageHeight = height / CGFloat(difficulty)
-        
-        let scale = screenshot.scale
-        let cgImage = screenshot.cgImage
+        let width: CGFloat
+        let height: CGFloat
+
+        switch screenshot.imageOrientation {
+        case .left, .leftMirrored, .right, .rightMirrored:
+            width = screenshot.size.height
+            height = screenshot.size.width
+        default:
+            width = screenshot.size.width
+            height = screenshot.size.height
+        }
+
+        let tileWidth = Int(width / CGFloat(difficulty))
+        let tileHeight = Int(height / CGFloat(difficulty))
+
+        let scale = Int(screenshot.scale)
         var images = [UIImage]()
-        
-        var adjustedHeight = puzzleImageHeight
-        var y = CGFloat(0)
-        
+
+        let cgImage = screenshot.cgImage!
+
+        var adjustedHeight = tileHeight
+
+        var y = 0
         for row in 0 ..< difficulty {
             if row == (difficulty - 1) {
-                adjustedHeight = height - y
+                adjustedHeight = Int(height) - y
             }
-            var adjustedWidth = puzzleImageWidth
-            var x = CGFloat(0)
+            var adjustedWidth = tileWidth
+            var x = 0
             for column in 0 ..< difficulty {
                 if column == (difficulty - 1) {
-                    adjustedWidth = width - x
+                    adjustedWidth = Int(width) - x
                 }
-
                 let origin = CGPoint(x: x * scale, y: y * scale)
                 let size = CGSize(width: adjustedWidth * scale, height: adjustedHeight * scale)
-                let puzzleImage = cgImage?.cropping(to: CGRect(origin: origin, size: size))!
-                images.append(UIImage(cgImage: puzzleImage!, scale: scale, orientation: .up))
-                x += puzzleImageWidth
+                let tileCgImage = cgImage.cropping(to: CGRect(origin: origin, size: size))!
+                images.append(UIImage(cgImage: tileCgImage, scale: screenshot.scale, orientation: screenshot.imageOrientation))
+                x += tileWidth
             }
-            y += puzzleImageHeight
+            y += tileHeight
         }
-        print(images.count)
         return images
     }
     
@@ -186,6 +194,7 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
             if segue.identifier == "puzzleSegue" {
                 let puzzleViewController = segue.destination as! PuzzleViewController
                 puzzleViewController.piecesCVImages = puzzleImages
+                puzzleViewController.creation = creation
         }
     }
 
