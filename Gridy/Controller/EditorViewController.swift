@@ -33,20 +33,20 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         setDifficulty()
     }
-    
+
     var incomingImage: UIImage?
     var creation = Creation.init()
     var initalImageViewOffset = CGPoint()
     let defaults = UserDefaults.standard
     var difficulty = 4
     var puzzleImages = [UIImage]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         config()
     }
-    
+
     func config() {
         setImage()
         setDifficulty()
@@ -54,43 +54,38 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveImageView(_sender:)))
         gridImageView.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
-        
+
         let pinchGestureRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(scaleImageView(_sender:)))
         gridImageView.addGestureRecognizer(pinchGestureRecognizer)
         pinchGestureRecognizer.delegate = self
-        
+
         let rotationGestureRecognizer = UIRotationGestureRecognizer(target: self, action: #selector(rotateImageView(_sender:)))
         gridImageView.addGestureRecognizer(rotationGestureRecognizer)
         rotationGestureRecognizer.delegate = self
         
     }
-    
+
     func setImage() {
         if let image = incomingImage {
             creationImageView.image = image
             hiddenCreationImageView.image = image
         }
     }
-    
+
     func setDifficulty() {
         switch difficulty {
         case 3:
-            self.animateImage(newImage: UIImage.init(named:"3x3grid")!)
+            self.gridImageView.image = UIImage.init(named:"3x3grid")!
         case 4:
-            self.animateImage(newImage: UIImage.init(named:"4x4grid")!)
+            self.gridImageView.image = UIImage.init(named:"4x4grid")!
         case 5:
-            self.animateImage(newImage: UIImage.init(named:"5x5grid")!)
+            self.gridImageView.image = UIImage.init(named:"5x5grid")!
         default:
-            self.animateImage(newImage: UIImage.init(named:"5x5grid")!)
+            self.gridImageView.image = UIImage.init(named:"5x5grid")!
         }
     }
-    
-    func animateImage (newImage: UIImage){
-        UIView.transition(with: self.gridImageView, duration: 1.0, options: .transitionCrossDissolve, animations: {
-        self.gridImageView.image = newImage
-    }, completion: nil)
-    }
-    
+
+    // MARK: Gesture Recognisers
     @objc func moveImageView(_sender: UIPanGestureRecognizer){
         print("moving")
         let translation = _sender.translation(in: gridImageView.superview)
@@ -102,6 +97,7 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
             _sender.setTranslation(CGPoint.zero, in: hiddenCreationImageView)
         }
     }
+
     @objc func scaleImageView(_sender: UIPinchGestureRecognizer){
         print("scaling")
         creationImageView.transform = creationImageView.transform.scaledBy(x: _sender.scale, y: _sender.scale)
@@ -109,6 +105,7 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
         hiddenCreationImageView.transform = creationImageView.transform.scaledBy(x: _sender.scale, y: _sender.scale)
         _sender.scale = 1
     }
+
     @objc func rotateImageView(_sender: UIRotationGestureRecognizer){
         print("rotating")
         creationImageView.transform = creationImageView.transform.rotated(by: _sender.rotation)
@@ -116,7 +113,7 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
         hiddenCreationImageView.transform = creationImageView.transform.rotated(by: _sender.rotation)
         _sender.rotation = 0
     }
-    
+
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer:UIGestureRecognizer) -> Bool {
         if gestureRecognizer.view != gridImageView {
             return false
@@ -130,21 +127,22 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
-    
+
+    // MARK: Handling Image
     func composeCreationImage() -> UIImage {
         UIGraphicsBeginImageContextWithOptions(creationFrame.bounds.size, false, 0 )
         creationFrame.drawHierarchy(in: creationFrame.bounds, afterScreenUpdates: true)
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        
+
         return screenshot
     }
-    
+
     func preparePuzzleImages() {
         puzzleImages.removeAll()
         puzzleImages = slice(screenshot: creation.image, with: difficulty)
     }
-    
+
     func slice(screenshot: UIImage, with difficulty: Int) -> [UIImage] {
         let width: CGFloat
         let height: CGFloat
@@ -189,7 +187,7 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
         }
         return images
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "puzzleSegue" {
                 let puzzleViewController = segue.destination as! PuzzleViewController

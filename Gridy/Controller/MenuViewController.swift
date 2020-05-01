@@ -22,29 +22,30 @@ class MenuViewController: UIViewController, UIImagePickerControllerDelegate, UIN
     @IBAction func libraryButton(_ sender: Any) {
         displayLibrary()
     }
-    
+
     let imagePickerController = UIImagePickerController()
     var randomImages = [UIImage]()
     var creation = Creation.init()
-    
+
+    // MARK: Setup
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         config()
     }
-    
+
     func config() {
         imagePickerController.delegate = self
         collectRandomImageSet()
     }
-    
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "editorSegue" {
             let editorViewController = segue.destination as! EditorViewController
             editorViewController.incomingImage = creation.image
         }
     }
-    
+
     //MARK: Access to camera and library
     func displayCamera() {
         let sourceType = UIImagePickerController.SourceType.camera
@@ -72,6 +73,7 @@ class MenuViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             troubleAlert(title: "Oops...", message: "Sincere apologies, it looks like we can't access your camera at this time")
         }
     }
+
     func displayLibrary() {
         let sourceType = UIImagePickerController.SourceType.photoLibrary
         
@@ -100,7 +102,7 @@ class MenuViewController: UIViewController, UIImagePickerControllerDelegate, UIN
             troubleAlert(title: "Oops...", message: "Sincere apologies, it looks like we can't access your photo library at this time")
         }
     }
-    
+
     //MARK: image picking
     func presentImagePicker(sourceType: UIImagePickerController.SourceType) {
         let imagePicker = UIImagePickerController()
@@ -109,31 +111,33 @@ class MenuViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         imagePicker.allowsEditing = false
         present(imagePicker, animated: true, completion: nil)
     }
-    
+
     func troubleAlert(title: String, message: String) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let alertAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alertController.addAction(alertAction)
         present(alertController, animated: true)
     }
-    
+
     func randomImage() -> UIImage {
         let randomNumber = Int.random(in: 0 ..< randomImages.count)
         return randomImages[randomNumber]
     }
+
     func collectRandomImageSet() {
         randomImages.removeAll()
-        let imageNames = ["lake", "dog", "balloons", "lion", "fall"]
+        let imageNames = ["lake", "paint", "lights", "railway", "road"]
         for i in 0 ..< imageNames.count {
                 randomImages.append(UIImage.init(named: imageNames[i])!)
         }
     }
-    
+
     func processPicked(image: UIImage?) {
         if let newImage = image {
             self.creation.image = newImage
         }
     }
+
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         print("hello")
         let newImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
@@ -141,17 +145,17 @@ class MenuViewController: UIViewController, UIImagePickerControllerDelegate, UIN
         dismiss(animated: true, completion: { () -> Void in
             self.performSegue(withIdentifier: "editorSegue", sender: self)
         })
-        
     }
-        
+
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
-            
     }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
     }
+
     @IBAction func unwindToMenu(_ unwindSegue: UIStoryboardSegue) {}
 }
 

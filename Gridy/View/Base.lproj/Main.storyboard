@@ -107,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-133.125" y="113.75"/>
+            <point key="canvasLocation" x="-291" y="100"/>
         </scene>
         <!--Editor View Controller-->
         <scene sceneID="GBa-Vq-ylF">
@@ -355,7 +355,7 @@ Swipe out of the grid to undo</string>
                                             <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C5T-bU-Ueb">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="C5T-bU-Ueb">
                                                     <rect key="frame" x="0.0" y="0.0" width="72" height="72"/>
                                                 </imageView>
                                             </subviews>
@@ -416,16 +416,39 @@ Swipe out of the grid to undo</string>
                                 <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zxg-kY-qaZ">
+                                <rect key="frame" x="115" y="59" width="41" height="34"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ktf-ST-102">
+                                        <rect key="frame" x="3.5" y="0.0" width="34" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="Anh-La-gQp"/>
+                                            <constraint firstAttribute="width" constant="34" id="TtI-A9-ePy"/>
+                                        </constraints>
+                                        <color key="tintColor" red="0.59998267890000001" green="0.82503861190000005" blue="0.61566263440000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <state key="normal" image="speaker.slash.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="muteButtonAction:" destination="ZOA-dE-NTt" eventType="touchUpInside" id="xlC-os-Cdi"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ktf-ST-102" firstAttribute="centerY" secondItem="zxg-kY-qaZ" secondAttribute="centerY" id="NaZ-qK-w9O"/>
+                                    <constraint firstItem="ktf-ST-102" firstAttribute="centerX" secondItem="zxg-kY-qaZ" secondAttribute="centerX" id="mZ7-wF-Hyv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="R97-fN-ZCj" firstAttribute="trailing" secondItem="aj5-Ao-Hd2" secondAttribute="trailing" id="1Ny-1X-Le5"/>
                             <constraint firstItem="4DD-fj-Lfm" firstAttribute="trailing" secondItem="pJL-2k-Yez" secondAttribute="trailing" constant="16" id="27x-DJ-h35"/>
                             <constraint firstItem="e66-Zz-QFM" firstAttribute="top" secondItem="4DD-fj-Lfm" secondAttribute="top" constant="16" id="5Op-sP-odV"/>
+                            <constraint firstItem="KtP-cf-1rN" firstAttribute="leading" secondItem="zxg-kY-qaZ" secondAttribute="trailing" id="6Vm-rT-nDw"/>
                             <constraint firstItem="jby-ch-Asb" firstAttribute="trailing" secondItem="SfS-aP-8Dy" secondAttribute="trailing" id="7Ic-3q-gjb"/>
                             <constraint firstItem="b8d-Zu-4Ct" firstAttribute="centerY" secondItem="sz8-5j-5Hh" secondAttribute="centerY" id="90R-fb-p1A"/>
                             <constraint firstItem="b0p-VP-LLn" firstAttribute="leading" secondItem="KtP-cf-1rN" secondAttribute="trailing" constant="8" id="9cH-B0-6UO"/>
                             <constraint firstItem="R97-fN-ZCj" firstAttribute="top" secondItem="aj5-Ao-Hd2" secondAttribute="bottom" constant="8" id="ABS-cl-d4l"/>
+                            <constraint firstItem="zxg-kY-qaZ" firstAttribute="leading" secondItem="gzY-R3-JKz" secondAttribute="trailing" id="C4Y-RV-byb"/>
                             <constraint firstItem="SfS-aP-8Dy" firstAttribute="leading" secondItem="e66-Zz-QFM" secondAttribute="trailing" id="CMx-Jw-3c8"/>
                             <constraint firstItem="pJL-2k-Yez" firstAttribute="top" secondItem="R97-fN-ZCj" secondAttribute="bottom" constant="8" id="ENf-no-H4s"/>
                             <constraint firstItem="jby-ch-Asb" firstAttribute="leading" secondItem="b0p-VP-LLn" secondAttribute="trailing" id="HtM-mc-ls5"/>
@@ -449,8 +472,10 @@ Swipe out of the grid to undo</string>
                             <constraint firstItem="KtP-cf-1rN" firstAttribute="bottom" secondItem="gzY-R3-JKz" secondAttribute="bottom" constant="4" id="hLx-vE-qBJ"/>
                             <constraint firstItem="gzY-R3-JKz" firstAttribute="top" secondItem="4DD-fj-Lfm" secondAttribute="top" constant="15" id="hSW-Cm-Jyb"/>
                             <constraint firstItem="Sw5-hV-vGe" firstAttribute="top" secondItem="SfS-aP-8Dy" secondAttribute="top" id="ijc-jF-IcF"/>
+                            <constraint firstItem="zxg-kY-qaZ" firstAttribute="top" secondItem="gzY-R3-JKz" secondAttribute="top" id="nbq-IL-J01"/>
                             <constraint firstItem="4DD-fj-Lfm" firstAttribute="trailing" secondItem="SfS-aP-8Dy" secondAttribute="trailing" constant="16" id="ofd-j6-uuo"/>
                             <constraint firstItem="Sw5-hV-vGe" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="e66-Zz-QFM" secondAttribute="trailing" id="rb1-cx-Ffi"/>
+                            <constraint firstItem="zxg-kY-qaZ" firstAttribute="bottom" secondItem="gzY-R3-JKz" secondAttribute="bottom" id="sU8-8F-apW"/>
                             <constraint firstItem="jby-ch-Asb" firstAttribute="top" secondItem="SfS-aP-8Dy" secondAttribute="bottom" id="vkg-oE-nVb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="4DD-fj-Lfm"/>
@@ -461,6 +486,7 @@ Swipe out of the grid to undo</string>
                         <outlet property="boardCollectionViewFlowLayout" destination="vxj-hj-6nA" id="CE7-vx-fZ1"/>
                         <outlet property="lookupImageView" destination="b8d-Zu-4Ct" id="30k-nY-V0t"/>
                         <outlet property="movesLabel" destination="jby-ch-Asb" id="FPo-CT-42y"/>
+                        <outlet property="muteButton" destination="ktf-ST-102" id="axB-FH-F4I"/>
                         <outlet property="piecesCollectionView" destination="aj5-Ao-Hd2" id="Y4b-eX-qTZ"/>
                         <outlet property="piecesCollectionViewFlowLayout" destination="L8f-D3-Ubs" id="Bhj-me-eV8"/>
                         <outlet property="scoreChangeLabel" destination="Sw5-hV-vGe" id="a8p-I7-Xty"/>
@@ -499,6 +525,7 @@ Swipe out of the grid to undo</string>
         <image name="Gridy-name-large-green" width="330" height="160"/>
         <image name="Gridy-name-small-green" width="70" height="34"/>
         <image name="Gridy-name-small-grey" width="57" height="28"/>
+        <image name="speaker.slash.fill" catalog="system" width="128" height="124"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>
