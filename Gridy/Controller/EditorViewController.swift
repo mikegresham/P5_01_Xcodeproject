@@ -19,13 +19,13 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var creationFrame: UIView!
     @IBOutlet weak var difficultySlider: UISlider!
     
-    
     @IBAction func startButton(_ sender: Any) {
         creation.image = composeCreationImage()
         preparePuzzleImages()
         performSegue(withIdentifier: "puzzleSegue", sender: self)
     }
     @IBAction func sliderValueChanged(_ sender: Any) {
+        // Slider to change puzzle difficulty
         if difficultySlider.value == 6 {
             difficulty = 5
         } else {
@@ -48,9 +48,12 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func config() {
+        // set defaults
         setImage()
         setDifficulty()
         difficultySlider.value = 4.5
+        
+        // set up gesture recognizers
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(moveImageView(_sender:)))
         gridImageView.addGestureRecognizer(panGestureRecognizer)
         panGestureRecognizer.delegate = self
@@ -75,10 +78,13 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     func setDifficulty() {
         switch difficulty {
         case 3:
+            // easy
             self.gridImageView.image = UIImage.init(named:"3x3grid")!
         case 4:
+            // medium
             self.gridImageView.image = UIImage.init(named:"4x4grid")!
         case 5:
+            // hard
             self.gridImageView.image = UIImage.init(named:"5x5grid")!
         default:
             self.gridImageView.image = UIImage.init(named:"5x5grid")!
@@ -87,7 +93,6 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: Gesture Recognisers
     @objc func moveImageView(_sender: UIPanGestureRecognizer){
-        print("moving")
         let translation = _sender.translation(in: gridImageView.superview)
         
         if _sender.state == .began || _sender.state == .changed {
@@ -99,7 +104,6 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     @objc func scaleImageView(_sender: UIPinchGestureRecognizer){
-        print("scaling")
         creationImageView.transform = creationImageView.transform.scaledBy(x: _sender.scale, y: _sender.scale)
         _sender.scale = 1
         hiddenCreationImageView.transform = creationImageView.transform.scaledBy(x: _sender.scale, y: _sender.scale)
@@ -107,7 +111,6 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     @objc func rotateImageView(_sender: UIRotationGestureRecognizer){
-        print("rotating")
         creationImageView.transform = creationImageView.transform.rotated(by: _sender.rotation)
         _sender.rotation = 0
         hiddenCreationImageView.transform = creationImageView.transform.rotated(by: _sender.rotation)
@@ -118,11 +121,13 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
         if gestureRecognizer.view != gridImageView {
             return false
         }
+        // User can't move image at the same time as other transformations
         if gestureRecognizer is UIPanGestureRecognizer || otherGestureRecognizer is UIPanGestureRecognizer {
             return false
         }
         return true
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -130,11 +135,11 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
 
     // MARK: Handling Image
     func composeCreationImage() -> UIImage {
+        // Return screenshot of edited image
         UIGraphicsBeginImageContextWithOptions(creationFrame.bounds.size, false, 0 )
         creationFrame.drawHierarchy(in: creationFrame.bounds, afterScreenUpdates: true)
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-
         return screenshot
     }
 
@@ -144,17 +149,9 @@ class EditorViewController: UIViewController, UIGestureRecognizerDelegate {
     }
 
     func slice(screenshot: UIImage, with difficulty: Int) -> [UIImage] {
-        let width: CGFloat
-        let height: CGFloat
-
-        switch screenshot.imageOrientation {
-        case .left, .leftMirrored, .right, .rightMirrored:
-            width = screenshot.size.height
-            height = screenshot.size.width
-        default:
-            width = screenshot.size.width
-            height = screenshot.size.height
-        }
+        // function to slice screenshot into puzzle pieces
+        let width = screenshot.size.height
+        let height = screenshot.size.height
 
         let tileWidth = Int(width / CGFloat(difficulty))
         let tileHeight = Int(height / CGFloat(difficulty))

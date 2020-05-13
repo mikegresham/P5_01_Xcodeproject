@@ -20,4 +20,12 @@ class Creation {
     func reset () {
         image = Creation.defaultImage
     }
+    func collectRandomImageSet() -> [UIImage] {
+        var randomImages = [UIImage]()
+        let imageNames = ["lake", "paint", "lights", "railway", "road"]
+        for i in 0 ..< imageNames.count {
+                randomImages.append(UIImage.init(named: imageNames[i])!)
+        }
+        return randomImages
+    }
 }
